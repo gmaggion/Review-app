@@ -17,8 +17,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          aprenda e se torne um dev{' '}
-          <code className={styles.code}>pages/index.js</code>
+          aprenda e torne-se um developer
         </p>
 
         <div className={styles.grid}>
@@ -46,7 +45,7 @@ export default function Home() {
           >
             <h2>Sobre &rarr;</h2>
             <p>
-              Um exemplo de página sobre
+              Um exemplo de página 
             </p>
           </a>
         </div>
