@@ -6,7 +6,7 @@ type Props = {
 
 const ReviewListItem: React.FC<Props> = ({ review }) => {
   return (
-    <Link href="/review/[id]" as={`/review/${review.id}`}>
+    <Link href="/reviews/[id]" as={`/reviews/${review.id}`}>
       <a>
         <article className="bg-gray-100 border-yellow-400 rounded-lg p-6 m-4 transition duration-300 ease-in-out transform hover:-translate-y-2 ">
           <div className="text-center md:text-left">

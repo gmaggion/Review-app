@@ -24,6 +24,11 @@ export default function ListReview({
     return (
       <Fragment>
         <h1 className="m-4 text-center text-4xl text-yellow-400">{msg}</h1>
+        
+        <button className="m-4 bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block flex-grow md:inline md:flex-grow-0">
+     <a href="/reviews/new">Adicionar nova avaliação</a>
+    </button>
+        
         <div>
           <ReviewList reviews={reviews}/>
         </div>

@@ -26,7 +26,7 @@ export default function Home() {
             <p>Base de conhecimento do Projeto</p>
           </a>
 
-          <a href="/review" className={styles.card}>
+          <a href="/reviews" className={styles.card}>
             <h2>Avaliações &rarr;</h2>
             <p>Um CRUD de avaliações</p>
           </a>
@@ -40,7 +40,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="https://borafazertrilha.com/"
             className={styles.card}
           >
             <h2>Sobre &rarr;</h2>
