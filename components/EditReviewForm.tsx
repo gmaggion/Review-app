@@ -3,7 +3,7 @@ import { useState, FormEvent } from "react";
 export type EditReviewFormData = {
   title: string;
   description: string;
-  rating: string;
+  rating: number;
 };
 
 type Props = {
@@ -15,14 +15,14 @@ type Props = {
 const EditReviewForm: React.FC<Props> = ({ onSubmit, review, reset }) => {
   const [title, setTitle] = useState(review?.title || "");
   const [description, setDescription] = useState(review?.description || "");
-  const [rating, setRating] = useState(review?.rating || "");
+  const [rating, setRating] = useState(review?.rating || 0);
   function doReset() {
     setTitle("");
     setDescription("");
-    setRating("");
+    setRating(0);
   }
   function isValid(data: EditReviewFormData): boolean {
-    return data.description !== "" && data.title !== "";
+    return data.description !== "" && data.title !== "" && data.rating >= 0 && data.rating <= 10;
   }
   function onFormSubmit(e: FormEvent<HTMLFormElement>, data: EditReviewFormData) {
     e.preventDefault();
@@ -46,12 +46,31 @@ const EditReviewForm: React.FC<Props> = ({ onSubmit, review, reset }) => {
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="title"
           type="text"
-          placeholder="Your title"
+          placeholder="Seu titulo"
           value={title}
           onChange={e => setTitle(e.target.value)}
           required
         />
       </div>
+     
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="rating"
+        >
+          Nota
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="rating"
+          type="number"
+          placeholder="Sua nota"
+          value={rating}
+          onChange={e => setRating(e.target.value)}
+          required
+          />
+          </div>
+     
       <div className="mb-6">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
@@ -63,30 +82,12 @@ const EditReviewForm: React.FC<Props> = ({ onSubmit, review, reset }) => {
           className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           id="description"
           rows={10}
-          placeholder="Your description"
+          placeholder="Sua descrição"
           value={description}
           onChange={e => setDescription(e.target.value)}
           required
         />
       </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="rating"
-        >
-          Nota
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="rating"
-          type="text"
-          placeholder="nota"
-          value={rating}
-          onChange={e => setRating(e.target.value)}
-          required
-          />
-          </div>
-
       <div className="flex md:justify-end">
         <button
           className={`bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex-grow md:flex-grow-0 ${
@@ -97,7 +98,7 @@ const EditReviewForm: React.FC<Props> = ({ onSubmit, review, reset }) => {
           disabled={!isValid({ title, description, rating })}
           type="submit"
         >
-          Submit
+          Criar
         </button>
       </div>
     </form>
