@@ -1,3 +1,6 @@
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { EditReviewForm } from "../../components/EditReviewForm";
 import { useRouter } from "next/router";
 
@@ -23,20 +26,25 @@ async function sendData(data: NewReviewFormData) {
 
 function AddNewPage() {
   const router = useRouter();
+  const notifySuccess = (msg) => toast.success(msg);
+  const notifyError = (msg) => toast.error(msg);
+
   async function onFormSubmit(data: NewReviewFormData) {
     try {
       sendData(data);
-      alert("Avaliação criada com sucesso!");
+      notifySuccess ("Criado com sucesso")
       router.replace(`/reviews`);
     } catch (error) {
-      alert("Something went wrong :/");
+      notifyError("Deu ruim:/");
     }
   }
 
   return (
+    <>
     <section className="m-4">
-      <EditReviewForm onSubmit={onFormSubmit} />
-    </section>
+        <EditReviewForm onSubmit={onFormSubmit} />
+      </section>
+      </>
   );
 }
 
