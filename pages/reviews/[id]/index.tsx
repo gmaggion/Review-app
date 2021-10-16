@@ -3,12 +3,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
+import ReactStars from "react-rating-stars-component";
+import { render } from "react-dom";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.params;
 
   const res = await fetch(`http://localhost:8081/api/reviews/${id}`);
   const { title, rating, description, id: reviewId } = (await res.json()) as NetworkReview;
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
   const review: Review = { title, rating, description, id: reviewId };
   return {
     props: { review }
