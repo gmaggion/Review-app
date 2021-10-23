@@ -67,7 +67,7 @@ const EditReviewForm: React.FC<Props> = ({ onSubmit, review, reset }) => {
           count={5}
           isHalf={true}
           onChange={ratingChanged}
-          value={review.rating}
+          value={rating/2}
           size={24}
           activeColor="#ffd700"
         />
