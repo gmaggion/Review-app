@@ -5,16 +5,17 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import ReactStars from "react-rating-stars-component";
 import { render } from "react-dom";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.params;
 
   const res = await fetch(`http://localhost:8081/api/reviews/${id}`);
   const { title, rating, description, id: reviewId } = (await res.json()) as NetworkReview;
-  const ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
   const review: Review = { title, rating, description, id: reviewId };
+  
+  
   return {
     props: { review }
   };
@@ -37,8 +38,25 @@ export default function ReviewDetailPage({
   const router = useRouter();
   const notifySuccess= (msg) => toast.success(msg);
   const notifyError= (msg) => toast.error(msg);
-  async function handleDeleteButtonClick(id: number) {
-    const answer = confirm("Tem certeza amigão?");
+
+  const confirmDelete = (id: number) => {
+    confirmAlert({
+      title: 'Confirmar exclusão',
+      message: 'Tem certeza que quer excluir essa avaliação?',
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: () => handleDeleteButtonClick(true, id)
+        },
+        {
+          label: 'Não',
+          onClick: () => handleDeleteButtonClick(false, id)
+        }
+      ]
+    });
+  };
+
+  async function handleDeleteButtonClick(answer: boolean, id: number) {
     if (!answer) return;
 
     try {
@@ -53,14 +71,21 @@ export default function ReviewDetailPage({
     <>
     <section className="m-4">
         <h1 className="m-4 text-center text-3xl text-yellow-500">{review.title}</h1>
-        <h2 className="m-4 text-center text-2xl text-yellow-300">{review.rating}</h2>
+        <ReactStars
+        count={5}
+        isHalf={true}
+        edit={false}
+        value={review.rating/2}
+        size={24}
+        activeColor="#ffd700"
+       />
         <p className="">{review.description}</p>
         <div className="mt-20 flex flex-col md:flex-row md:justify-end">
           <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block flex-grow md:inline md:flex-grow-0">
             <a href={`/reviews/${review.id}/edit`}>Edit</a>
           </button>
           <button
-            onClick={() => handleDeleteButtonClick(review.id)}
+            onClick={() => confirmDelete(review.id)}
             className="bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block flex-grow mt-2 md:inline md:flex-grow-0 md:m-0 md:ml-1"
           >
             Deletar

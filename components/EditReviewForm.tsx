@@ -1,4 +1,5 @@
 import { useState, FormEvent } from "react";
+import ReactStars from "react-rating-stars-component";
 
 export type EditReviewFormData = {
   title: string;
@@ -16,14 +17,22 @@ const EditReviewForm: React.FC<Props> = ({ onSubmit, review, reset }) => {
   const [title, setTitle] = useState(review?.title || "");
   const [description, setDescription] = useState(review?.description || "");
   const [rating, setRating] = useState(review?.rating || 0);
+
   function doReset() {
     setTitle("");
     setDescription("");
     setRating(0);
   }
+
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+    setRating(newRating*2);
+  };
+
   function isValid(data: EditReviewFormData): boolean {
     return data.description !== "" && data.title !== "" && data.rating >= 0 && data.rating <= 10;
   }
+
   function onFormSubmit(e: FormEvent<HTMLFormElement>, data: EditReviewFormData) {
     e.preventDefault();
     onSubmit(data);
@@ -54,28 +63,20 @@ const EditReviewForm: React.FC<Props> = ({ onSubmit, review, reset }) => {
       </div>
      
       <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="rating"
-        >
-          Nota
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="rating"
-          type="number"
-          placeholder="Sua nota"
-          value={rating}
-          onChange={e => setRating(e.target.value)}
-          required
-          />
+        <ReactStars
+          count={5}
+          isHalf={true}
+          onChange={ratingChanged}
+          value={review.rating}
+          size={24}
+          activeColor="#ffd700"
+        />
           </div>
      
       <div className="mb-6">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="description"
-        >
+          htmlFor="description">
           Descrição
         </label>
         <textarea
