@@ -4,7 +4,7 @@ import { ReviewList } from "../components/ReviewList";
 import Link from 'next/link';
 
 export async function getServerSideProps() {
-    const res = await fetch("http://localhost:8081/api/reviews");
+    const res = await fetch(process.env.REVIEW_API_URL);
     const networkReviews = (await res.json()) as NetworkReview[];
     const reviews: Review[] = networkReviews.map(({ id, title, rating, description }) => ({
       id,
