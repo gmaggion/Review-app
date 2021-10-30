@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
+
 
 export default function Home() {
   return (
@@ -21,26 +23,31 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
+          <Link href="https://nextjs.org/docs">
+          <a  className={styles.card}>
             <h2>Documentação &rarr;</h2>
             <p>Base de conhecimento do Projeto</p>
           </a>
-
-          <a href="/reviews" className={styles.card}>
-            <h2>Avaliações &rarr;</h2>
-            <p>Um CRUD de avaliações</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
+          </Link>
+          
+          <Link href="/reviews">
+            <a className={styles.card}>
+              <h2>Avaliações &rarr;</h2>
+              <p>Um CRUD de avaliações</p>
+            </a>
+          </Link>
+         
+         <Link href="https://github.com/vercel/next.js/tree/master/examples">
+          <a 
             className={styles.card}
           >
             <h2>Blog &rarr;</h2>
             <p>Um exemplo de um Blog</p>
           </a>
+          </Link>
 
+          <Link href="https://borafazertrilha.com/">
           <a
-            href="https://borafazertrilha.com/"
             className={styles.card}
           >
             <h2>Sobre &rarr;</h2>
@@ -48,6 +55,7 @@ export default function Home() {
               Um exemplo de página 
             </p>
           </a>
+          </Link>
         </div>
       </main>
 

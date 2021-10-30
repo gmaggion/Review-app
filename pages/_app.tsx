@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReactStars from "react-rating-stars-component";
 import React from "react";
 import { render } from "react-dom";
+import Link from 'next/link';
 
 
   function MyApp({ Component, pageProps }) {
@@ -22,17 +23,23 @@ import { render } from "react-dom";
           <nav>
             <ul className="flex justify-between items-center p-8 bg-yellow-100">
               <li>
-                <a href="/" className="text-black-400 no-underline">
+                <Link href="/">
+                <a className="text-black-400 no-underline">
                   Home
                 </a>
+                </Link>
 
-                <a href="/about" className="text-black-400 no-underline p-8">
+                <Link href="/about">
+                <a className="text-black-400 no-underline p-8">
                   About
                 </a>
+                </Link>
 
-                <a href="/blog" className="text-black-400 no-underline">
+               <Link href="/blog">
+               <a  className="text-black-400 no-underline">
                   Blog
                 </a>
+                </Link>
               </li>
             </ul>
           </nav>
