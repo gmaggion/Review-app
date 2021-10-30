@@ -11,7 +11,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.params;
 
-  const res = await fetch(`http://localhost:8081/api/reviews/${id}`);
+  const res = await fetch(process.env.REVIEW_API_URL + `/${id}`);
   const { title, rating, description, id: reviewId } = (await res.json()) as NetworkReview;
   const review: Review = { title, rating, description, id: reviewId };
   

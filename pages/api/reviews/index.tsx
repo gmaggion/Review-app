@@ -6,7 +6,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const data = req.body as NewReviewFormData;
 
-        const response = await fetch('http://localhost:8081/api/reviews', {
+        const response = await fetch(process.env.REVIEW_API_URL, {
             method: "POST",
             headers: {
             "Content-Type": "application/json"

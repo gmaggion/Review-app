@@ -9,9 +9,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } = req;
   if (req.method === "DELETE") {
     
-    console.log(`http://localhost:8081/api/reviews/`+ id);
+    console.log(process.env.REVIEW_API_URL + `/`+ id);
 
-    const response = await fetch(`http://localhost:8081/api/reviews/${id}`, {
+    const response = await fetch(process.env.REVIEW_API_URL + `/${id}`, {
         method: "DELETE",
         headers: {
         "Content-Type": "application/json"
@@ -23,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (req.method === "PUT") {
     const data = req.body as EditReviewFormData;
 
-    const response = await fetch(`http://localhost:8081/api/reviews/${id}`, {
+    const response = await fetch(process.env.REVIEW_API_URL + `/${id}`, {
         method: "PUT",
         headers: {
         "Content-Type": "application/json"
